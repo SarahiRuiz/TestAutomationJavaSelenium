@@ -5,28 +5,32 @@ pipeline {
         stage('Build') {
             steps {
                 bat 'mvn clean'
-                bat 'mvn build'
+                bat 'mvn compile'
             }
         }
         stage('Test') {
             steps {
-                script { //This is a way to manage failers in the test cases.
+                script {
                     def testExitCode = bat(script: 'mvn test', returnStatus: true)
                     if (testExitCode != 0) {
                         echo "⚠️ Algunos tests fallaron. Código: ${testExitCode}"
-                        currentBuild.result = 'UNSTABLE' // o 'FAILURE' si quieres marcarlo tú mismo
+                        currentBuild.result = 'UNSTABLE'
                     }
                 }
             }
         }
     }
-    post {
+
+    /*post {
         always {
-             emailext (
+            emailext (
                 subject: "Resultado del Job: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
-                body: "Este es un correo de prueba.",
+                body: """<p>Build finalizado.</p>
+                         <p>Estado: ${currentBuild.result}</p>
+                         <p>Revisar detalles en Jenkins: ${env.BUILD_URL}</p>""",
+                mimeType: 'text/html',
                 to: "hotdog112277@gmail.com"
             )
         }
-    }
+    }*/
 }
