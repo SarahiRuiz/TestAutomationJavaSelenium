@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                sh 'mvn -B -DskipTests clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                script { //This is a way to manage failers in the test cases.
+                    def testExitCode = bat(script: 'mvn test', returnStatus: true)
+                    if (testExitCode != 0) {
+                        echo "⚠️ Algunos tests fallaron. Código: ${testExitCode}"
+                        currentBuild.result = 'UNSTABLE' // o 'FAILURE' si quieres marcarlo tú mismo
+                    }
+                }
+            }
+        }
+    }
+    post {
+        always {
+             emailext (
+                subject: "Resultado del Job: ${env.JOB_NAME} #${env.BUILD_NUMBER}",
+                body: "Este es un correo de prueba.",
+                to: "hotdog112277@gmail.com"
+            )
+        }
+    }
+}
