@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class App extends SetUp{
 
 	public DemoQaPage DemoQaPage = new DemoQaPage();
+	public RadioButtonPage RadioButtonPage = new RadioButtonPage();
+	
 	public Boolean WaitForElementToBeClickable(WebElement element, int waitTimeSeconds) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(waitTimeSeconds));
         try {

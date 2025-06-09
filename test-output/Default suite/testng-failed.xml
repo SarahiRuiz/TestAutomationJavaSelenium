@@ -5,9 +5,9 @@
     <classes>
       <class name="Tests.RadioButtonTests">
         <methods>
-          <include name="FillRadioButton"/>
-          <include name="TearDownTest"/>
+          <include name="StepsToSelectRadioButton"/>
           <include name="SetUpTest"/>
+          <include name="TearDownTest"/>
         </methods>
       </class> <!-- Tests.RadioButtonTests -->
     </classes>
