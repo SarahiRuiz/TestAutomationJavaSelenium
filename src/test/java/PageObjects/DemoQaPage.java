@@ -20,12 +20,15 @@ public class DemoQaPage extends SetUp{
 	}
 	public void GoToRadioButtonPage() throws InterruptedException
 	{
+		Thread.sleep(5000);
 		WebElement elementsTitle = driver.findElement(DemoQaPageElements.ElementsTitle);
-		WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(2));
 	    wait.until(d -> elementsTitle.isDisplayed());
 	    assertTrue(elementsTitle.isDisplayed(), "Verify Element Title is displayed");
 		actions.scrollToElement(elementsTitle).perform();
 		elementsTitle.click();
+		WebElement radioButtonTitle = driver.findElement(DemoQaPageElements.RadioButtonTitle);
+	    wait.until(d -> radioButtonTitle.isDisplayed());
+	    radioButtonTitle.click();
 		Thread.sleep(10000);
 	}
 }
